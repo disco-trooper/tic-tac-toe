@@ -1,0 +1,29 @@
+table, td, tr {
+  box-sizing: border-box;
+  border-collapse: collapse;
+  user-select: none;
+}
+
+td {
+  padding: 15px;
+}
+
+#cell00, #cell01, #cell10, #cell11, #cell20, #cell21 {
+  border-right: 2px solid black;
+}
+
+#cell00, #cell01, #cell02, #cell10, #cell11, #cell12 {
+  border-bottom: 2px solid black;
+}
+
+td, tr {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+table {
+  table-layout: fixed;
+  width: 300px;
+  height: 300px;
+}
