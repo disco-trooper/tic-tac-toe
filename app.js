@@ -63,8 +63,19 @@ const game = (() => {
 
     function listenForMoves() {
         document.addEventListener("click", (event) => {
+            let buttons = document.querySelector("#buttons");
+            let clearButton = document.querySelector("#clearBoard");
+            let announcer = document.querySelector("#announcer");
+            if (event.target.getAttribute("id") == "clearBoard") {
+                buttons.setAttribute("style", "display: block;");
+                clearButton.setAttribute("style", "display: none;");
+            }
+
             if ((event.target.getAttribute("id") == "playVSFriend" || event.target.getAttribute("id") == "playVSAI" || event.target.getAttribute("id") == "playVSImpossible") && (isStartedVSAI[0] == false && isStartedVSFriend[0] == false && isStartedVSImpossible[0] == false)) {
                 gameBoard.createNewBoard();
+                buttons.setAttribute("style", "display: none;");
+                clearButton.setAttribute("style", "display: block;");
+                announcer.setAttribute("style", "display: none;")
                 currentPlayer[0] = playerOne;
             }
 
@@ -105,7 +116,13 @@ const game = (() => {
         if (!event.target.textContent) {
             makeMove();
             checkOutcome();
-            if (isStartedVSImpossible[0] == false) return;
+            if (isStartedVSImpossible[0] == false) {
+                let buttons = document.querySelector("#buttons");
+                let clearButton = document.querySelector("#clearBoard");
+                buttons.setAttribute("style", "display: block;");
+                clearButton.setAttribute("style", "display: none;");
+                return;
+            }
             currentPlayer[0] = AI;
         }
     }
@@ -114,7 +131,13 @@ const game = (() => {
         if (!event.target.textContent) {
             makeMove();
             checkOutcome();
-            if (isStartedVSAI[0] == false) return;
+            if (isStartedVSAI[0] == false) {
+                let buttons = document.querySelector("#buttons");
+                let clearButton = document.querySelector("#clearBoard");
+                buttons.setAttribute("style", "display: block;");
+                clearButton.setAttribute("style", "display: none;");
+                return;
+            }
             currentPlayer[0] = AI;
         }
     }
@@ -124,7 +147,13 @@ const game = (() => {
         gameBoard.board[bestMove] = AI.choice;
         document.querySelector(`${"#cell" + bestMove}`).textContent = AI.choice;
         checkOutcome();
-        if (isStartedVSImpossible[0] == false) return;
+        if (isStartedVSImpossible[0] == false) {
+            let buttons = document.querySelector("#buttons");
+            let clearButton = document.querySelector("#clearBoard");
+            buttons.setAttribute("style", "display: block;");
+            clearButton.setAttribute("style", "display: none;");
+            return;
+        }
         currentPlayer[0] = playerOne;
     }
 
@@ -136,7 +165,11 @@ const game = (() => {
         gameBoard.board[randomNumber] = AI.choice;
         document.querySelector(`${"#cell" + randomNumber.toString()}`).textContent = AI.choice;
         checkOutcome();
-        if (isStartedVSAI[0] == false) return;
+        if (isStartedVSAI[0] == false) {
+            buttons.setAttribute("style", "display: block;");
+            clearButton.setAttribute("style", "display: none;");
+            return;
+        }
         currentPlayer[0] = playerOne;
     }
 
@@ -144,7 +177,11 @@ const game = (() => {
         if (!event.target.textContent) {
             makeMove();
             checkOutcome();
-            if (isStartedVSFriend[0] == false) return;
+            if (isStartedVSFriend[0] == false) {
+                buttons.setAttribute("style", "display: block;");
+                clearButton.setAttribute("style", "display: none;");
+                return;
+            }
             if (currentPlayer[0] == playerOne) currentPlayer[0] = playerTwo;
             else currentPlayer[0] = playerOne;
         }
@@ -196,14 +233,22 @@ const game = (() => {
     function checkRows() {
         for (let i = 0; i < 7; i+=3) {
             if (gameBoard.board[i] == playerOne.choice && gameBoard.board[i+1] == playerOne.choice && gameBoard.board[i+2] == playerOne.choice) {
-                alert(playerOne.name + " wins!");
+                let announcer = document.querySelector("#announcer");
+                announcer.setAttribute("style", "display: block;");
+                announcer.textContent = `${playerOne.name + " wins!"}`;
                 isStartedVSFriend[0] = false;
                 isStartedVSAI[0] = false;
                 isStartedVSImpossible[0] = false;
                 return;
             }
             if (gameBoard.board[i] == playerTwo.choice && gameBoard.board[i+1] == playerTwo.choice && gameBoard.board[i+2] == playerTwo.choice) {
-                alert(playerTwo.name + " wins!");
+                let announcer = document.querySelector("#announcer");
+                announcer.setAttribute("style", "display: block;");
+                if (isStartedVSAI[0] == true || isStartedVSImpossible[0] == true) {
+                    announcer.textContent = `${AI.name + " wins!"}`;
+                } else {
+                announcer.textContent = `${playerTwo.name + " wins!"}`;
+                }
                 isStartedVSFriend[0] = false;
                 isStartedVSAI[0] = false;
                 isStartedVSImpossible[0] = false;
@@ -215,14 +260,22 @@ const game = (() => {
     function checkColumns() {
         for (let i = 0; i < 3; i++) {
             if (gameBoard.board[i] == playerOne.choice && gameBoard.board[i+3] == playerOne.choice && gameBoard.board[i+6] == playerOne.choice) {
-                alert(playerOne.name + " wins!");
+                let announcer = document.querySelector("#announcer");
+                announcer.setAttribute("style", "display: block;");
+                announcer.textContent = `${playerOne.name + " wins!"}`;
                 isStartedVSFriend[0] = false;
                 isStartedVSAI[0] = false;
                 isStartedVSImpossible[0] = false;
                 return;
             }
             if (gameBoard.board[i] == playerTwo.choice && gameBoard.board[i+3] == playerTwo.choice && gameBoard.board[i+6] == playerTwo.choice) {
-                alert(playerTwo.name + " wins!");
+                let announcer = document.querySelector("#announcer");
+                announcer.setAttribute("style", "display: block;");
+                if (isStartedVSAI[0] == true || isStartedVSImpossible[0] == true) {
+                    announcer.textContent = `${AI.name + " wins!"}`;
+                } else {
+                announcer.textContent = `${playerTwo.name + " wins!"}`;
+                }
                 isStartedVSFriend[0] = false;
                 isStartedVSAI[0] = false;
                 isStartedVSImpossible[0] = false;
@@ -233,14 +286,22 @@ const game = (() => {
 
     function checkDiagonal() {
         if ((gameBoard.board[0] == playerOne.choice && gameBoard.board[4] == playerOne.choice && gameBoard.board[8] == playerOne.choice) || (gameBoard.board[6] == playerOne.choice && gameBoard.board[4] == playerOne.choice && gameBoard.board[2] == playerOne.choice)) {
-            alert(playerOne.name + " wins!");
+            let announcer = document.querySelector("#announcer");
+            announcer.setAttribute("style", "display: block;");
+            announcer.textContent = `${playerOne.name + " wins!"}`;
             isStartedVSFriend[0] = false;
             isStartedVSAI[0] = false;
             isStartedVSImpossible[0] = false;
             return;
         }
         if ((gameBoard.board[0] == playerTwo.choice && gameBoard.board[4] == playerTwo.choice && gameBoard.board[8] == playerTwo.choice) || (gameBoard.board[6] == playerTwo.choice && gameBoard.board[4] == playerTwo.choice && gameBoard.board[2] == playerTwo.choice)) {
-            alert(playerTwo.name + " wins!")
+            let announcer = document.querySelector("#announcer");
+            announcer.setAttribute("style", "display: block;");
+            if (isStartedVSAI[0] == true || isStartedVSImpossible[0] == true) {
+                announcer.textContent = `${AI.name + " wins!"}`;
+            } else {
+            announcer.textContent = `${playerTwo.name + " wins!"}`;
+            }
             isStartedVSFriend[0] = false;
             isStartedVSAI[0] = false;
             isStartedVSImpossible[0] = false;
@@ -254,7 +315,8 @@ const game = (() => {
             if (gameBoard.board[i] != "X" && gameBoard.board[i] != "O") tie = false;
         }
         if (tie == true) {
-            alert("Tie");
+            let announcer = document.querySelector("#announcer");
+            announcer.textContent = "Tie!";
             return;
         }
     }
