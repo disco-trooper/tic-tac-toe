@@ -1,2 +1,17 @@
-# Tic Tac Toe
-This is the **Tic Tac Toe project** for [The Odin Project](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript).
+# Tic-Tac-Toe
+
+A simple Tic-Tac-Toe game with a friend/AI opponent.
+
+## Getting Started
+
+Click on the link in the repo's description to play the game.
+
+
+## Authors
+
+[disco-trooper](https://github.com/disco-trooper)
+
+
+## Acknowledgments
+
+Used [Ahmad Abdolsaheb's](https://github.com/ahmadabdolsaheb) minimax code.
