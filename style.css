@@ -8,11 +8,11 @@ td {
   padding: 15px;
 }
 
-#cell00, #cell01, #cell10, #cell11, #cell20, #cell21 {
+#cell0, #cell1, #cell3, #cell4, #cell6, #cell7 {
   border-right: 2px solid black;
 }
 
-#cell00, #cell01, #cell02, #cell10, #cell11, #cell12 {
+#cell0, #cell1, #cell2, #cell3, #cell4, #cell5 {
   border-bottom: 2px solid black;
 }
 
