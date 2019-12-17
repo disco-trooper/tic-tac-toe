@@ -12,6 +12,8 @@ const gameBoard = (() => {
             game.isStartedVSFriend[0] = false;
             game.isStartedVSImpossible[0] = false;
             game.currentPlayer[0] = game.playerOne;
+            let announcer = document.querySelector("#announcer");
+            announcer.setAttribute("style", "display: none;")
         }
     });
 
@@ -30,12 +32,6 @@ const gameBoard = (() => {
         }
     }
 
-    function createNewBoard() {
-        removeTable();
-        resetBoard();
-        createBoard();
-    }
-
     function removeTable() {
         let table = document.querySelector("table");
         while (table.firstChild) {
@@ -47,6 +43,12 @@ const gameBoard = (() => {
         for (let i = 0; i < board.length; i++) {
             board[i] = i;
         }
+    }
+
+    function createNewBoard() {
+        removeTable();
+        resetBoard();
+        createBoard();
     }
 
     return {board, createNewBoard, createBoard};
@@ -75,7 +77,6 @@ const game = (() => {
                 gameBoard.createNewBoard();
                 buttons.setAttribute("style", "display: none;");
                 clearButton.setAttribute("style", "display: block;");
-                announcer.setAttribute("style", "display: none;")
                 currentPlayer[0] = playerOne;
             }
 
@@ -178,6 +179,8 @@ const game = (() => {
             makeMove();
             checkOutcome();
             if (isStartedVSFriend[0] == false) {
+                let buttons = document.querySelector("#buttons");
+                let clearButton = document.querySelector("#clearBoard");
                 buttons.setAttribute("style", "display: block;");
                 clearButton.setAttribute("style", "display: none;");
                 return;
@@ -233,26 +236,10 @@ const game = (() => {
     function checkRows() {
         for (let i = 0; i < 7; i+=3) {
             if (gameBoard.board[i] == playerOne.choice && gameBoard.board[i+1] == playerOne.choice && gameBoard.board[i+2] == playerOne.choice) {
-                let announcer = document.querySelector("#announcer");
-                announcer.setAttribute("style", "display: block;");
-                announcer.textContent = `${playerOne.name + " wins!"}`;
-                isStartedVSFriend[0] = false;
-                isStartedVSAI[0] = false;
-                isStartedVSImpossible[0] = false;
-                return;
+                announcePlayerOne();
             }
             if (gameBoard.board[i] == playerTwo.choice && gameBoard.board[i+1] == playerTwo.choice && gameBoard.board[i+2] == playerTwo.choice) {
-                let announcer = document.querySelector("#announcer");
-                announcer.setAttribute("style", "display: block;");
-                if (isStartedVSAI[0] == true || isStartedVSImpossible[0] == true) {
-                    announcer.textContent = `${AI.name + " wins!"}`;
-                } else {
-                announcer.textContent = `${playerTwo.name + " wins!"}`;
-                }
-                isStartedVSFriend[0] = false;
-                isStartedVSAI[0] = false;
-                isStartedVSImpossible[0] = false;
-                return;
+                announceP2AI();
             }
         }
     }
@@ -260,52 +247,20 @@ const game = (() => {
     function checkColumns() {
         for (let i = 0; i < 3; i++) {
             if (gameBoard.board[i] == playerOne.choice && gameBoard.board[i+3] == playerOne.choice && gameBoard.board[i+6] == playerOne.choice) {
-                let announcer = document.querySelector("#announcer");
-                announcer.setAttribute("style", "display: block;");
-                announcer.textContent = `${playerOne.name + " wins!"}`;
-                isStartedVSFriend[0] = false;
-                isStartedVSAI[0] = false;
-                isStartedVSImpossible[0] = false;
-                return;
+                announcePlayerOne();
             }
             if (gameBoard.board[i] == playerTwo.choice && gameBoard.board[i+3] == playerTwo.choice && gameBoard.board[i+6] == playerTwo.choice) {
-                let announcer = document.querySelector("#announcer");
-                announcer.setAttribute("style", "display: block;");
-                if (isStartedVSAI[0] == true || isStartedVSImpossible[0] == true) {
-                    announcer.textContent = `${AI.name + " wins!"}`;
-                } else {
-                announcer.textContent = `${playerTwo.name + " wins!"}`;
-                }
-                isStartedVSFriend[0] = false;
-                isStartedVSAI[0] = false;
-                isStartedVSImpossible[0] = false;
-                return;
+                announceP2AI();
             }
         }
     }
 
     function checkDiagonal() {
         if ((gameBoard.board[0] == playerOne.choice && gameBoard.board[4] == playerOne.choice && gameBoard.board[8] == playerOne.choice) || (gameBoard.board[6] == playerOne.choice && gameBoard.board[4] == playerOne.choice && gameBoard.board[2] == playerOne.choice)) {
-            let announcer = document.querySelector("#announcer");
-            announcer.setAttribute("style", "display: block;");
-            announcer.textContent = `${playerOne.name + " wins!"}`;
-            isStartedVSFriend[0] = false;
-            isStartedVSAI[0] = false;
-            isStartedVSImpossible[0] = false;
-            return;
+            announcePlayerOne();
         }
         if ((gameBoard.board[0] == playerTwo.choice && gameBoard.board[4] == playerTwo.choice && gameBoard.board[8] == playerTwo.choice) || (gameBoard.board[6] == playerTwo.choice && gameBoard.board[4] == playerTwo.choice && gameBoard.board[2] == playerTwo.choice)) {
-            let announcer = document.querySelector("#announcer");
-            announcer.setAttribute("style", "display: block;");
-            if (isStartedVSAI[0] == true || isStartedVSImpossible[0] == true) {
-                announcer.textContent = `${AI.name + " wins!"}`;
-            } else {
-            announcer.textContent = `${playerTwo.name + " wins!"}`;
-            }
-            isStartedVSFriend[0] = false;
-            isStartedVSAI[0] = false;
-            isStartedVSImpossible[0] = false;
-            return;
+            announceP2AI();
         }
     }
 
@@ -316,9 +271,36 @@ const game = (() => {
         }
         if (tie == true) {
             let announcer = document.querySelector("#announcer");
+            announcer.setAttribute("style", "display: block;");
             announcer.textContent = "Tie!";
             return;
         }
+    }
+
+    function announceP2AI() {
+        let announcer = document.querySelector("#announcer");
+        announcer.setAttribute("style", "display: block;");
+        if (isStartedVSAI[0] == true || isStartedVSImpossible[0] == true) {
+            announcer.textContent = `${AI.name + " wins!"}`;
+        } else {
+        announcer.textContent = `${playerTwo.name + " wins!"}`;
+        }
+        resetModes();
+        return;
+    }
+    
+    function announcePlayerOne() {
+        let announcer = document.querySelector("#announcer");
+        announcer.setAttribute("style", "display: block;");
+        announcer.textContent = `${playerOne.name + " wins!"}`;
+        resetModes();
+        return;
+    }
+
+    function resetModes() {
+        isStartedVSFriend[0] = false;
+        isStartedVSAI[0] = false;
+        isStartedVSImpossible[0] = false;
     }
     
     return {listenForMoves, isStartedVSAI, isStartedVSFriend, isStartedVSImpossible, currentPlayer, playerOne, AI};
