@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-A simple Tic-Tac-Toe game with a friend/AI opponent.
+A simple Tic-Tac-Toe where you can play against a friend, AI that makes random moves and AI that is impossible to beat.
 
 ## Getting Started
 
