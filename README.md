@@ -6,11 +6,9 @@ A simple Tic-Tac-Toe where you can play against a friend, AI that makes random m
 
 Click on the link in the repo's description to play the game.
 
-
 ## Authors
 
 [disco-trooper](https://github.com/disco-trooper)
-
 
 ## Acknowledgments
 
