@@ -74,6 +74,8 @@ const game = (() => {
             }
 
             if ((event.target.getAttribute("id") == "playVSFriend" || event.target.getAttribute("id") == "playVSAI" || event.target.getAttribute("id") == "playVSImpossible") && (isStartedVSAI[0] == false && isStartedVSFriend[0] == false && isStartedVSImpossible[0] == false)) {
+                let announcer = document.querySelector("#announcer");
+                announcer.textContent = "";
                 gameBoard.createNewBoard();
                 buttons.setAttribute("style", "display: none;");
                 clearButton.setAttribute("style", "display: block;");
