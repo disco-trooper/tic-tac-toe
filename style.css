@@ -34,6 +34,7 @@ h1 {
 #grid {
   margin: 0 auto;
   width: fit-content;
+  width: -moz-fit-content;
   position: relative;
   top: 5%;
 }
