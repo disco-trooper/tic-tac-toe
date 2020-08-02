@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-A simple Tic-Tac-Toe game where you can play against a friend, AI that makes random moves and AI that is impossible to beat.
+A simple Tic-Tac-Toe game where you can play against a friend, computer that makes random moves and computer that is impossible to beat. Project made as a part of [The Odin Project's curriculum](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript).
 
 ## Getting Started
 
